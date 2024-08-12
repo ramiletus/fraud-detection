@@ -35,6 +35,7 @@
 	</developers>
 	<properties>
 		<java.version>17</java.version>
+		<neo4j.version>5.22.0</neo4j.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -47,6 +48,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
