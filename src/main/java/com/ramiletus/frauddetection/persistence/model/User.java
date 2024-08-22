@@ -8,13 +8,14 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Node
 public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private UUID id;
 
     @Getter
     @Setter
