@@ -6,14 +6,17 @@ import com.ramiletus.frauddetection.service.users.injectusers.InjectUserCommand;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UsersCommandHandlerImpl implements UsersCommandHandler {
 
-    UserDao userDao;
+    private final PhoneNumberService phoneNumberService;
+    private final UserDao userDao;
 
-    public UsersCommandHandlerImpl(UserDao userDao) {
+    public UsersCommandHandlerImpl(UserDao userDao, PhoneNumberService phoneNumberService) {
         this.userDao = userDao;
+        this.phoneNumberService = phoneNumberService;
     }
 
     @Override
@@ -21,7 +24,12 @@ public class UsersCommandHandlerImpl implements UsersCommandHandler {
         User user = new User();
         user.setName(command.getName());
         user.setEmail(command.getEmail());
-        user.setPhoneNumbers(new HashSet<>(PhoneNumberMapper.INSTANCE.phoneNumberDTOListToPhoneNUmberList(command.getPhoneNumbers())));
+        user.setPhoneNumbers(new HashSet<>());
+
+        List<PhoneNumberDTO> phoneNumberDTOs = command.getPhoneNumbers();
+        phoneNumberDTOs.forEach(phoneNumberDTO ->
+            user.getPhoneNumbers().add(phoneNumberService.createPhoneNumber(phoneNumberDTO))
+        );
         userDao.save(user);
     }
 }
