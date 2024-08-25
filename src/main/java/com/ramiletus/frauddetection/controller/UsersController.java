@@ -2,6 +2,7 @@ package com.ramiletus.frauddetection.controller;
 
 import com.ramiletus.frauddetection.service.users.UsersCommandHandler;
 import com.ramiletus.frauddetection.service.users.injectusers.InjectUserCommand;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +19,8 @@ public class UsersController {
     }
 
     @PostMapping(value = "/inject")
-    public void injectUsers(@RequestBody InjectUserCommand injectUserCommand) {
+    public void injectUsers(@Valid @RequestBody InjectUserCommand injectUserCommand) {
         usersCommandHandler.handleInjectUser(injectUserCommand);
     }
-
 
 }
