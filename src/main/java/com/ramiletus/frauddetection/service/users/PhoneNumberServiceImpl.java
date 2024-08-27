@@ -16,6 +16,11 @@ public class PhoneNumberServiceImpl implements PhoneNumberService {
         this.operatorDao = operatorDao;
     }
 
+
+    // This method creates a new PhoneNumber entity from a PhoneNumberDTO object, and saves it to the database.
+    // The operator of the PhoneNumber is saved to the database if it does not exist.
+    // If it exists, the existing operator is used.
+    // The method returns the created PhoneNumber entity.
     @Override
     @Transactional
     public PhoneNumber createPhoneNumber(PhoneNumberDTO phoneNumber) {
