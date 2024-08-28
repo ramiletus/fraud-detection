@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = FraudDetectionApplication.class)
-class DevicesCommandHandlerImplTest {
+class DevicesCommandHandlerTest {
 
     @Autowired
     UserDao userDao;
@@ -61,13 +61,13 @@ class DevicesCommandHandlerImplTest {
         injectUserCommand.setPhoneNumbers(List.of(phoneNumber1));
 
         // When
-        UUID insertedUserId = usersCommandHandler.handleInjectUser(injectUserCommand).getId();
+        String insertedUserId = usersCommandHandler.handleInjectUser(injectUserCommand).getId();
 
         InjectDeviceCommand injectDeviceCommand = new InjectDeviceCommand();
 
         injectDeviceCommand.setBrowser("Random Browser");
         injectDeviceCommand.setOperativeSystem("TempleOS");
-        injectDeviceCommand.setUserId(insertedUserId.toString());
+        injectDeviceCommand.setUserId(insertedUserId);
 
         Device createdDevice = devicesCommandHandler.handleInjectDevice(injectDeviceCommand);
 
@@ -78,5 +78,21 @@ class DevicesCommandHandlerImplTest {
                 () -> assertFalse(foundUser.get().getDevices().isEmpty()),
                 () -> assertTrue(foundUser.get().getDevices().contains(createdDevice))
         );
+    }
+
+    @Test
+    @Transactional
+    void handleInjectDeviceWithInvalidUserId(){
+        // Given
+        InjectDeviceCommand injectDeviceCommand = new InjectDeviceCommand();
+
+        injectDeviceCommand.setBrowser("Random Browser");
+        injectDeviceCommand.setOperativeSystem("TempleOS");
+        String invalidUserId = UUID.randomUUID().toString();
+        injectDeviceCommand.setUserId(invalidUserId);
+
+        // When
+        // Then
+        assertThrows(InstanceNotFoundException.class, () -> devicesCommandHandler.handleInjectDevice(injectDeviceCommand));
     }
 }

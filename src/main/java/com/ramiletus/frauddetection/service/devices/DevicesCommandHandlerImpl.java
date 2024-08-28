@@ -5,13 +5,11 @@ import com.ramiletus.frauddetection.persistence.dao.UserDao;
 import com.ramiletus.frauddetection.persistence.model.Device;
 import com.ramiletus.frauddetection.persistence.model.User;
 import com.ramiletus.frauddetection.service.devices.injectdevices.InjectDeviceCommand;
-import com.ramiletus.frauddetection.service.users.PhoneNumberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.management.InstanceNotFoundException;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -22,7 +20,7 @@ public class DevicesCommandHandlerImpl implements DevicesCommandHandler {
 
     @Override
     public Device handleInjectDevice(InjectDeviceCommand command) throws InstanceNotFoundException {
-        Optional<User> foundUser = userDao.findById(UUID.fromString(command.getUserId()));
+        Optional<User> foundUser = userDao.findById(command.getUserId());
         if (foundUser.isPresent()){
 
             User user = foundUser.get();
