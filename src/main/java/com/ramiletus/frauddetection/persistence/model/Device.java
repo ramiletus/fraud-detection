@@ -5,47 +5,43 @@ import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Relationship;
 import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 
 import java.util.Objects;
-import java.util.Set;
 
-@Getter
 @Node
-public class User {
+public class Device {
 
     @Id
     @GeneratedValue(value = UUIDStringGenerator.class)
     private String id;
 
+    @Getter
     @Setter
-    private String name;
+    private String browser;
 
+    @Getter
     @Setter
-    private String email;
+    private String operativeSystem;
 
-    @Setter
-    @Relationship(type = "PHONENUMBERS")
-    private Set<PhoneNumber> phoneNumbers;
+    public Device() {
+    }
 
-    @Setter
-    @Relationship(type = "USES_DEVICE")
-    private Set<Device> devices;
-
-    public User() {
+    public Device(String browser, String operativeSystem) {
+        this.browser = browser;
+        this.operativeSystem = operativeSystem;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(phoneNumbers, user.phoneNumbers) && Objects.equals(devices, user.devices);
+        Device device = (Device) o;
+        return Objects.equals(id, device.id) && Objects.equals(browser, device.browser) && Objects.equals(operativeSystem, device.operativeSystem);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, phoneNumbers, devices);
+        return Objects.hash(id, browser, operativeSystem);
     }
 }

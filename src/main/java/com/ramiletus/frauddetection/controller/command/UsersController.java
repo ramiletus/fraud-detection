@@ -1,4 +1,4 @@
-package com.ramiletus.frauddetection.controller;
+package com.ramiletus.frauddetection.controller.command;
 
 import com.ramiletus.frauddetection.service.users.UsersCommandHandler;
 import com.ramiletus.frauddetection.service.users.injectusers.InjectUserCommand;

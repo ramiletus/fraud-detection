@@ -20,7 +20,7 @@ public class UsersCommandHandlerImpl implements UsersCommandHandler {
     }
 
     @Override
-    public void handleInjectUser(InjectUserCommand command) {
+    public User handleInjectUser(InjectUserCommand command) {
         User user = new User();
         user.setName(command.getName());
         user.setEmail(command.getEmail());
@@ -30,6 +30,7 @@ public class UsersCommandHandlerImpl implements UsersCommandHandler {
         phoneNumberDTOs.forEach(phoneNumberDTO ->
             user.getPhoneNumbers().add(phoneNumberService.createPhoneNumber(phoneNumberDTO))
         );
-        userDao.save(user);
+
+        return userDao.save(user);
     }
 }
