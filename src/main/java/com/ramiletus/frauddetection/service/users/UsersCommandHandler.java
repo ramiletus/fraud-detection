@@ -1,7 +1,8 @@
 package com.ramiletus.frauddetection.service.users;
 
+import com.ramiletus.frauddetection.persistence.model.User;
 import com.ramiletus.frauddetection.service.users.injectusers.InjectUserCommand;
 
 public interface UsersCommandHandler {
-    void handleInjectUser(InjectUserCommand command);
+    User handleInjectUser(InjectUserCommand command);
 }
