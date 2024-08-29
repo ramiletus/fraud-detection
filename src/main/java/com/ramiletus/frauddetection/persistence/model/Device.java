@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 
 import java.util.Objects;
@@ -14,7 +15,9 @@ public class Device {
 
     @Id
     @GeneratedValue(value = UUIDStringGenerator.class)
+    @Getter
     private String id;
+
 
     @Getter
     @Setter
@@ -23,6 +26,11 @@ public class Device {
     @Getter
     @Setter
     private String operativeSystem;
+
+    @Relationship(type = "LOCATED_IN")
+    @Getter
+    @Setter
+    private Location location;
 
     public Device() {
     }

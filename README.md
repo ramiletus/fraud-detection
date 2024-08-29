@@ -52,3 +52,26 @@ It uses Neo4j to deploy a graph database. This way of connecting entities is mor
 
 
 </details>
+
+### /locations
+
+<details>
+ <summary><code>POST</code> <code><b>/inject</b></code> <code>(registers a Location in the database, related to a Device)</code></summary>
+
+##### Parameters
+
+> | name                  | type           | data type         | description                                                                                                 |
+> |-----------------------|----------------|-------------------|-------------------------------------------------------------------------------------------------------------|
+> | injectLocationCommand | required, body | object (JSON)     | Object containing all the necessary information about a Location to be stored (InjectLocationCommand.class) |
+
+
+##### Responses
+
+> | http code | content-type                      | response                                           |
+> |-----------|-----------------------------------|----------------------------------------------------|
+> | `200`     | `text/plain;charset=UTF-8`        | `Location injected successfully`                   |
+> | `400`     | `application/json`                | `a field must not be null nor empty`               |
+> | `404`     | `application/json`                | `the Device indicated does not exist in database ` |
+
+
+</details>
