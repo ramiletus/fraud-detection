@@ -15,7 +15,9 @@ public class Device {
 
     @Id
     @GeneratedValue(value = UUIDStringGenerator.class)
+    @Getter
     private String id;
+
 
     @Getter
     @Setter
