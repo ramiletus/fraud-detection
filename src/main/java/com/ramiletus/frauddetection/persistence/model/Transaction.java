@@ -1,34 +1,36 @@
 package com.ramiletus.frauddetection.persistence.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 
-@Data
 @Getter
 @Node
-public class Location {
+public class Transaction {
 
     @Id
     @GeneratedValue(value = UUIDStringGenerator.class)
     private String id;
 
     @Setter
-    public String country;
+    @Relationship(type = "MADE_BY")
+    private User user;
 
     @Setter
-    private String region;
+    @Relationship(type = "MADE_FROM")
+    private Location location;
 
     @Setter
-    public String city;
+    @Relationship(type = "MADE_WITH")
+    private Device device;
 
     @Setter
-    public Double lat;
+    private Long timestamp;
 
     @Setter
-    public Double lon;
+    private Boolean isFraud;
 }

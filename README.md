@@ -75,3 +75,26 @@ It uses Neo4j to deploy a graph database. This way of connecting entities is mor
 
 
 </details>
+
+### /transactions
+
+<details>
+ <summary><code>POST</code> <code><b>/inject</b></code> <code>(registers a Transaction in the database, related to a User, a Device and a Location)</code></summary>
+
+##### Parameters
+
+> | name                       | type           | data type         | description                                                                                                         |
+> |----------------------------|----------------|-------------------|---------------------------------------------------------------------------------------------------------------------|
+> | registerTransactionCommand | required, body | object (JSON)     | Object containing all the necessary information about a Transaction to be stored (RegisterTransactionCommand.class) |
+
+
+##### Responses
+
+> | http code | content-type       | response                                                                                                           |
+> |-----------|--------------------|--------------------------------------------------------------------------------------------------------------------|
+> | `200`     | `application/json` | `the Transaction successfully registered, including a field indicating if it has been declared as a fraud attempt` |
+> | `400`     | `application/json` | `a field must not be null nor empty`                                                                               |
+> | `404`     | `application/json` | `the Device, User or Location indicated does not exist in database `                                               |
+
+
+</details>
