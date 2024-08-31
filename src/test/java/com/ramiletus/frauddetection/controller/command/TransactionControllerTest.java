@@ -1,6 +1,6 @@
 package com.ramiletus.frauddetection.controller.command;
 
-import com.ramiletus.frauddetection.service.location.LocationsCommandHandler;
+import com.ramiletus.frauddetection.service.transaction.TransactionCommandHandler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class LocationsControllerTest {
+class TransactionControllerTest {
 
     @MockBean
-    private LocationsCommandHandler locationsCommandHandler;
+    private TransactionCommandHandler transactionsCommandHandler;
 
     @Autowired
     private MockMvc mockMvc;
@@ -29,10 +29,12 @@ class LocationsControllerTest {
     @Test
     public void whenPostRequestToDevicesAndValidDevice_thenCorrectResponse() throws Exception {
         String injectDeviceCommand = "{\n" +
-                "    \"ip\": \"24.48.0.1\",\n" +
-                "    \"deviceId\": \"7198ec26-0739-477e-96a2-c760ccce9289\"\n" +
+                "    \"userId\": \"0eb8b937-75d9-4786-8f35-28207821b83f\",\n" +
+                "    \"deviceId\": \"cff5f742-35a1-4134-ba6a-011e448253e9\",\n" +
+                "    \"locationId\": \"b490537d-55cf-4424-aeef-caed2ad7d000\",\n" +
+                "    \"timestamp\": 17250123351201\n" +
                 "}";
-        mockMvc.perform(MockMvcRequestBuilders.post("/locations/inject")
+        mockMvc.perform(MockMvcRequestBuilders.post("/transactions/inject")
                         .content(injectDeviceCommand)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -41,12 +43,15 @@ class LocationsControllerTest {
     @Test
     public void whenPostRequestToDevicesAndInValidDevice_thenCorrectResponse() throws Exception {
         String wrongInjectDeviceCommand = "{\n" +
-                "    \"ip\": null,\n" +
-                "    \"deviceId\": \"7198ec26-0739-477e-96a2-c760ccce9289\"\n" +
+                "    \"userId\": \"0eb8b937-75d9-4786-8f35-28207821b83f\",\n" +
+                "    \"deviceId\": null,\n" +
+                "    \"locationId\": \"b490537d-55cf-4424-aeef-caed2ad7d000\",\n" +
+                "    \"timestamp\": 17250123351201\n" +
                 "}";
-        mockMvc.perform(MockMvcRequestBuilders.post("/locations/inject")
+        mockMvc.perform(MockMvcRequestBuilders.post("/transactions/inject")
                         .content(wrongInjectDeviceCommand)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
+
 }

@@ -8,6 +8,8 @@ import com.ramiletus.frauddetection.persistence.model.User;
 import com.ramiletus.frauddetection.service.devices.DevicesCommandHandler;
 import com.ramiletus.frauddetection.service.devices.injectdevices.InjectDeviceCommand;
 import com.ramiletus.frauddetection.service.location.injectlocations.InjectLocationCommand;
+import com.ramiletus.frauddetection.service.transaction.TransactionCommandHandler;
+import com.ramiletus.frauddetection.service.transaction.registertransaction.RegisterTransactionCommand;
 import com.ramiletus.frauddetection.service.users.PhoneNumberDTO;
 import com.ramiletus.frauddetection.service.users.UsersCommandHandlerImpl;
 import com.ramiletus.frauddetection.service.users.injectusers.InjectUserCommand;
@@ -40,6 +42,10 @@ class LocationsCommandHandlerTest {
 
     @Autowired
     DevicesCommandHandler devicesCommandHandler;
+
+    @Autowired
+    TransactionCommandHandler transactionCommandHandler;
+
     @Autowired
     private UserDao userDao;
 
@@ -95,12 +101,14 @@ class LocationsCommandHandlerTest {
     void handleInjectLocationToInValidDeviceId(){
         // Given
 
-        InjectLocationCommand injectLocationCommand = new InjectLocationCommand();
-        injectLocationCommand.setIp("24.48.0.1");
-        injectLocationCommand.setDeviceId(UUID.randomUUID().toString());
+        RegisterTransactionCommand registerTransactionCommand = new RegisterTransactionCommand();
+        registerTransactionCommand.setUserId(UUID.randomUUID().toString());
+        registerTransactionCommand.setDeviceId(UUID.randomUUID().toString());
+        registerTransactionCommand.setLocationId(UUID.randomUUID().toString());
+        registerTransactionCommand.setTimestamp(System.currentTimeMillis());
 
         // Then
-        assertThrows(InstanceNotFoundException.class, () -> locationsCommandHandler.handleInjectLocation(injectLocationCommand));
+        assertThrows(InstanceNotFoundException.class, () ->transactionCommandHandler.handleTransaction(registerTransactionCommand));
     }
 
 }
