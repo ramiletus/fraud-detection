@@ -65,7 +65,7 @@ class TransactionsCommandHandlerTest {
 
         injectUserCommand.setPhoneNumbers(List.of(phoneNumber1));
 
-        String insertedUserId = usersCommandHandler.handleInjectUser(injectUserCommand).getId();
+        String insertedUserId = usersCommandHandler.handle(injectUserCommand).getId();
 
         InjectDeviceCommand injectDeviceCommand = new InjectDeviceCommand();
 
@@ -73,19 +73,19 @@ class TransactionsCommandHandlerTest {
         injectDeviceCommand.setOperativeSystem("TempleOS");
         injectDeviceCommand.setUserId(insertedUserId);
 
-        String insertedDeviceId = devicesCommandHandler.handleInjectDevice(injectDeviceCommand).getId();
+        String insertedDeviceId = devicesCommandHandler.handle(injectDeviceCommand).getId();
 
         InjectLocationCommand injectLocationCommand1 = new InjectLocationCommand();
         injectLocationCommand1.setIp("24.48.0.1");
         injectLocationCommand1.setDeviceId(insertedDeviceId);
 
-        String insetedLocation1Id = locationsCommandHandler.handleInjectLocation(injectLocationCommand1).getId();
+        String insetedLocation1Id = locationsCommandHandler.handle(injectLocationCommand1).getId();
 
         InjectLocationCommand injectLocationCommand2 = new InjectLocationCommand();
         injectLocationCommand2.setIp("24.155.246.135");
         injectLocationCommand2.setDeviceId(insertedDeviceId);
 
-        String insetedLocation2Id = locationsCommandHandler.handleInjectLocation(injectLocationCommand2).getId();
+        String insetedLocation2Id = locationsCommandHandler.handle(injectLocationCommand2).getId();
 
 
         // When
@@ -101,8 +101,8 @@ class TransactionsCommandHandlerTest {
         registerTransactionCommand2.setLocationId(insetedLocation2Id);
         registerTransactionCommand2.setTimestamp(System.currentTimeMillis());
 
-        String transaction1Id = transactionCommandHandler.handleTransaction(registerTransactionCommand1).getId();
-        String transaction2Id = transactionCommandHandler.handleTransaction(registerTransactionCommand2).getId();
+        String transaction1Id = transactionCommandHandler.handle(registerTransactionCommand1).getId();
+        String transaction2Id = transactionCommandHandler.handle(registerTransactionCommand2).getId();
 
         // Then
         Optional<Transaction> foundTransaction1 = transactionDao.findById(transaction1Id);
@@ -127,7 +127,7 @@ class TransactionsCommandHandlerTest {
         registerTransactionCommand1.setTimestamp(System.currentTimeMillis()-10000);
 
         // Then
-        assertThrows(InstanceNotFoundException.class, () -> transactionCommandHandler.handleTransaction(registerTransactionCommand1));
+        assertThrows(InstanceNotFoundException.class, () -> transactionCommandHandler.handle(registerTransactionCommand1));
     }
 
 }

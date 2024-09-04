@@ -45,7 +45,7 @@ class DevicesCommandHandlerTest {
 
     @Test
     @Transactional
-    void handleInjectDevice() throws InstanceNotFoundException {
+    void handle() throws InstanceNotFoundException {
         // Given
 
         InjectUserCommand injectUserCommand = new InjectUserCommand();
@@ -61,7 +61,7 @@ class DevicesCommandHandlerTest {
         injectUserCommand.setPhoneNumbers(List.of(phoneNumber1));
 
         // When
-        String insertedUserId = usersCommandHandler.handleInjectUser(injectUserCommand).getId();
+        String insertedUserId = usersCommandHandler.handle(injectUserCommand).getId();
 
         InjectDeviceCommand injectDeviceCommand = new InjectDeviceCommand();
 
@@ -69,7 +69,7 @@ class DevicesCommandHandlerTest {
         injectDeviceCommand.setOperativeSystem("TempleOS");
         injectDeviceCommand.setUserId(insertedUserId);
 
-        Device createdDevice = devicesCommandHandler.handleInjectDevice(injectDeviceCommand);
+        Device createdDevice = devicesCommandHandler.handle(injectDeviceCommand);
 
         // Then
         Optional<User> foundUser = userDao.findById(insertedUserId);
@@ -82,7 +82,7 @@ class DevicesCommandHandlerTest {
 
     @Test
     @Transactional
-    void handleInjectDeviceWithInvalidUserId(){
+    void handleWithInvalidUserId(){
         // Given
         InjectDeviceCommand injectDeviceCommand = new InjectDeviceCommand();
 
@@ -93,6 +93,6 @@ class DevicesCommandHandlerTest {
 
         // When
         // Then
-        assertThrows(InstanceNotFoundException.class, () -> devicesCommandHandler.handleInjectDevice(injectDeviceCommand));
+        assertThrows(InstanceNotFoundException.class, () -> devicesCommandHandler.handle(injectDeviceCommand));
     }
 }

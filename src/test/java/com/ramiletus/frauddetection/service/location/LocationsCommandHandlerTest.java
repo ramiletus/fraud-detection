@@ -51,7 +51,7 @@ class LocationsCommandHandlerTest {
 
     @Test
     @Transactional
-    void handleInjectLocation() throws InstanceNotFoundException {
+    void handle() throws InstanceNotFoundException {
         // Given
 
         InjectUserCommand injectUserCommand = new InjectUserCommand();
@@ -67,7 +67,7 @@ class LocationsCommandHandlerTest {
         injectUserCommand.setPhoneNumbers(List.of(phoneNumber1));
 
         // When
-        String insertedUserId = usersCommandHandler.handleInjectUser(injectUserCommand).getId();
+        String insertedUserId = usersCommandHandler.handle(injectUserCommand).getId();
 
         InjectDeviceCommand injectDeviceCommand = new InjectDeviceCommand();
 
@@ -75,7 +75,7 @@ class LocationsCommandHandlerTest {
         injectDeviceCommand.setOperativeSystem("TempleOS");
         injectDeviceCommand.setUserId(insertedUserId);
 
-        Device createdDevice = devicesCommandHandler.handleInjectDevice(injectDeviceCommand);
+        Device createdDevice = devicesCommandHandler.handle(injectDeviceCommand);
 
         String insertedDeviceId = createdDevice.getId();
 
@@ -85,7 +85,7 @@ class LocationsCommandHandlerTest {
 
         // When
 
-        String insetedLocationId = locationsCommandHandler.handleInjectLocation(injectLocationCommand).getId();
+        String insetedLocationId = locationsCommandHandler.handle(injectLocationCommand).getId();
 
         // Then
         Optional<User> foundUser = userDao.findById(insertedUserId);
@@ -98,7 +98,7 @@ class LocationsCommandHandlerTest {
 
     @Test
     @Transactional
-    void handleInjectLocationToInValidDeviceId(){
+    void handleToInValidDeviceId(){
         // Given
 
         RegisterTransactionCommand registerTransactionCommand = new RegisterTransactionCommand();
@@ -108,7 +108,7 @@ class LocationsCommandHandlerTest {
         registerTransactionCommand.setTimestamp(System.currentTimeMillis());
 
         // Then
-        assertThrows(InstanceNotFoundException.class, () ->transactionCommandHandler.handleTransaction(registerTransactionCommand));
+        assertThrows(InstanceNotFoundException.class, () ->transactionCommandHandler.handle(registerTransactionCommand));
     }
 
 }

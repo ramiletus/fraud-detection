@@ -26,7 +26,7 @@ public class TransactionCommandHandlerImpl implements TransactionCommandHandler 
     private final FraudDetectionService fraudDetectionService;
 
     @Override
-    public Transaction handleTransaction(RegisterTransactionCommand command) throws InstanceNotFoundException {
+    public Transaction handle(RegisterTransactionCommand command) throws InstanceNotFoundException {
 
         User user = userDao.findById(command.getUserId()).orElseThrow(() -> new InstanceNotFoundException("User not found"));
 

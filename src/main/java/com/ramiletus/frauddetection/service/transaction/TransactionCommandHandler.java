@@ -6,5 +6,5 @@ import com.ramiletus.frauddetection.service.transaction.registertransaction.Regi
 import javax.management.InstanceNotFoundException;
 
 public interface TransactionCommandHandler{
-    Transaction handleTransaction(RegisterTransactionCommand command) throws InstanceNotFoundException;
+    Transaction handle(RegisterTransactionCommand command) throws InstanceNotFoundException;
 }
