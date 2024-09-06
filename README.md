@@ -2,7 +2,7 @@
 
 This is an application intended to persist data about users and transactions in order to detect fraud in the context of e-commerce. With this purpose, it provides a REST API to inject the data and check if a transaction is a fraud attempt.
 
-It also provides a Kafka consumer to listen to data injection commands.
+It also provides a Kafka consumer and a RabbitMQ listener to listen to data injection commands.
 
 It uses Neo4j to deploy a graph database. This way of connecting entities is more natural and efficient for the purposes of the application.
 
