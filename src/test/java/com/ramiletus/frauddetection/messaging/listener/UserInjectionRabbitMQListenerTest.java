@@ -34,7 +34,6 @@ public class UserInjectionRabbitMQListenerTest {
     @Autowired
     private Queue queue;
 
-    // Crea un Spy del listener
     @SpyBean
     private InjectUserCommandRabbitMQListener listener;
 
@@ -61,7 +60,7 @@ public class UserInjectionRabbitMQListenerTest {
 
         rabbitTemplate.convertAndSend(queue.getName(), "{\n    \"name\": \"Juan Ramil\",\n    \"email\": \"" + uniqueEmail + "\",\n    \"phoneNumbers\": [\n        {\n            \"number\": 626262626,\n            \"isMainNumber\": false,\n            \"operator\": \"Telefonica\"\n        }, \n        {\n            \"number\": 655555555,\n            \"isMainNumber\": true,\n            \"operator\": \"Vodafone\"\n        }\n    ]\n}");
 
-        assertThat(latch.await(10, TimeUnit.SECONDS)).isTrue(); // Espera un máximo de 10 segundos
+        assertThat(latch.await(10, TimeUnit.SECONDS)).isTrue();
 
         List<User> foundUser = userDao.findByEmail(uniqueEmail);
         assertThat(foundUser).hasSize(1);
