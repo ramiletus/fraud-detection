@@ -49,7 +49,7 @@ class UsersCommandHandlerTest {
         injectUserCommand.setPhoneNumbers(List.of(phoneNumber1));
 
         // When
-        usersCommandHandler.handleInjectUser(injectUserCommand);
+        usersCommandHandler.handle(injectUserCommand);
 
         // Then
         List<User> foundUsers = userDao.findByEmail("johndoe@udc.es");
@@ -97,8 +97,8 @@ class UsersCommandHandlerTest {
         injectUserCommand2.setPhoneNumbers(List.of(phoneNumber3));
 
         // When
-        usersCommandHandler.handleInjectUser(injectUserCommand1);
-        usersCommandHandler.handleInjectUser(injectUserCommand2);
+        usersCommandHandler.handle(injectUserCommand1);
+        usersCommandHandler.handle(injectUserCommand2);
 
         // Then
         Optional<Operator> foundOperator = operatorDao.findByName("Operator1");

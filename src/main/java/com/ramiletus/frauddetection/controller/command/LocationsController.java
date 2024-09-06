@@ -22,7 +22,7 @@ public class LocationsController {
 
     @PostMapping(value = "/inject")
     public void injectUsers(@Valid @RequestBody InjectLocationCommand injectLocationCommand) throws InstanceNotFoundException {
-        locationsCommandHandler.handleInjectLocation(injectLocationCommand);
+        locationsCommandHandler.handle(injectLocationCommand);
     }
 
 }

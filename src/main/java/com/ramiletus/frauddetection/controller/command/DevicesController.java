@@ -2,7 +2,6 @@ package com.ramiletus.frauddetection.controller.command;
 
 import com.ramiletus.frauddetection.service.devices.DevicesCommandHandler;
 import com.ramiletus.frauddetection.service.devices.injectdevices.InjectDeviceCommand;
-import com.ramiletus.frauddetection.service.users.UsersCommandHandler;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,13 +16,13 @@ public class DevicesController {
 
     private final DevicesCommandHandler devicesCommandHandler;
 
-    public DevicesController(UsersCommandHandler usersCommandHandler, DevicesCommandHandler devicesCommandHandler) {
+    public DevicesController(DevicesCommandHandler devicesCommandHandler) {
         this.devicesCommandHandler = devicesCommandHandler;
     }
 
     @PostMapping(value = "/inject")
     public void injectUsers(@Valid @RequestBody InjectDeviceCommand injectDeviceCommand) throws InstanceNotFoundException {
-        devicesCommandHandler.handleInjectDevice(injectDeviceCommand);
+        devicesCommandHandler.handle(injectDeviceCommand);
     }
 
 }

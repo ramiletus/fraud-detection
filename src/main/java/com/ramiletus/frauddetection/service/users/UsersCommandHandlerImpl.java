@@ -20,7 +20,7 @@ public class UsersCommandHandlerImpl implements UsersCommandHandler {
     }
 
     @Override
-    public User handleInjectUser(InjectUserCommand command) {
+    public User handle(InjectUserCommand command) {
         User user = new User();
         user.setName(command.getName());
         user.setEmail(command.getEmail());

@@ -6,5 +6,5 @@ import com.ramiletus.frauddetection.service.location.injectlocations.InjectLocat
 import javax.management.InstanceNotFoundException;
 
 public interface LocationsCommandHandler {
-    Location handleInjectLocation(InjectLocationCommand command) throws InstanceNotFoundException;
+    Location handle(InjectLocationCommand command) throws InstanceNotFoundException;
 }

@@ -4,5 +4,5 @@ import com.ramiletus.frauddetection.persistence.model.User;
 import com.ramiletus.frauddetection.service.users.injectusers.InjectUserCommand;
 
 public interface UsersCommandHandler {
-    User handleInjectUser(InjectUserCommand command);
+    User handle(InjectUserCommand command);
 }

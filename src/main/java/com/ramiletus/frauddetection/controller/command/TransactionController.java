@@ -23,6 +23,6 @@ public class TransactionController {
     }
     @PostMapping(value = "/inject")
     public ResponseEntity<Transaction> injectUsers(@Valid @RequestBody RegisterTransactionCommand registerTransactionCommand) throws InstanceNotFoundException {
-        return ResponseEntity.ok(transactionCommandHandler.handleTransaction(registerTransactionCommand));
+        return ResponseEntity.ok(transactionCommandHandler.handle(registerTransactionCommand));
     }
 }

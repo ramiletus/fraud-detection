@@ -6,5 +6,5 @@ import com.ramiletus.frauddetection.service.devices.injectdevices.InjectDeviceCo
 import javax.management.InstanceNotFoundException;
 
 public interface DevicesCommandHandler {
-    Device handleInjectDevice(InjectDeviceCommand command) throws InstanceNotFoundException;
+    Device handle(InjectDeviceCommand command) throws InstanceNotFoundException;
 }

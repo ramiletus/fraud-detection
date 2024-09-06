@@ -19,7 +19,7 @@ public class DevicesCommandHandlerImpl implements DevicesCommandHandler {
     private final DeviceDao deviceDao;
 
     @Override
-    public Device handleInjectDevice(InjectDeviceCommand command) throws InstanceNotFoundException {
+    public Device handle(InjectDeviceCommand command) throws InstanceNotFoundException {
         Optional<User> foundUser = userDao.findById(command.getUserId());
         if (foundUser.isPresent()){
 

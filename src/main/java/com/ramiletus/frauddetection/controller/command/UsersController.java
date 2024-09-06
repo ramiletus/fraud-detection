@@ -20,7 +20,7 @@ public class UsersController {
 
     @PostMapping(value = "/inject")
     public void injectUsers(@Valid @RequestBody InjectUserCommand injectUserCommand) {
-        usersCommandHandler.handleInjectUser(injectUserCommand);
+        usersCommandHandler.handle(injectUserCommand);
     }
 
 }

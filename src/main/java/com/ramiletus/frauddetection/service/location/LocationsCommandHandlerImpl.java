@@ -20,7 +20,7 @@ public class LocationsCommandHandlerImpl implements LocationsCommandHandler {
     private final LocationService locationService;
 
     @Override
-    public Location handleInjectLocation(InjectLocationCommand command) throws InstanceNotFoundException {
+    public Location handle(InjectLocationCommand command) throws InstanceNotFoundException {
 
         Optional<Device> foundDevice = deviceDao.findById(command.getDeviceId());
 
