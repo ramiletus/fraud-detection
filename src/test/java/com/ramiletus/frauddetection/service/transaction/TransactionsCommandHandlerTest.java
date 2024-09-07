@@ -6,16 +6,20 @@ import com.ramiletus.frauddetection.persistence.dao.TransactionDao;
 import com.ramiletus.frauddetection.persistence.model.Transaction;
 import com.ramiletus.frauddetection.service.devices.DevicesCommandHandler;
 import com.ramiletus.frauddetection.service.devices.injectdevices.InjectDeviceCommand;
+import com.ramiletus.frauddetection.service.frauddetection.devicelocation.DeviceLocationVerificationService;
 import com.ramiletus.frauddetection.service.location.LocationsCommandHandler;
 import com.ramiletus.frauddetection.service.location.injectlocations.InjectLocationCommand;
 import com.ramiletus.frauddetection.service.transaction.registertransaction.RegisterTransactionCommand;
 import com.ramiletus.frauddetection.service.users.PhoneNumberDTO;
 import com.ramiletus.frauddetection.service.users.UsersCommandHandlerImpl;
 import com.ramiletus.frauddetection.service.users.injectusers.InjectUserCommand;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,10 +29,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = FraudDetectionApplication.class)
 class TransactionsCommandHandlerTest {
+
 
     @Autowired
     LocationDao locationDao;
@@ -47,6 +53,19 @@ class TransactionsCommandHandlerTest {
 
     @Autowired
     private TransactionDao transactionDao;
+
+    @MockBean
+    private DeviceLocationVerificationService verificationService;
+
+    private void mockCheckApi() {
+        Mockito.when(verificationService.verifyDeviceLocation(anyString(), anyDouble(), anyDouble(), anyString()))
+                .thenReturn(75);
+    }
+
+    @BeforeEach
+    public void setUp() {
+        mockCheckApi();
+    }
 
     @Test
     @Transactional
@@ -110,8 +129,8 @@ class TransactionsCommandHandlerTest {
         assertAll(
                 () -> assertTrue(foundTransaction1.isPresent()),
                 () -> assertTrue(foundTransaction2.isPresent()),
-                () -> assertFalse(foundTransaction1.get().getIsFraud()),
-                () -> assertTrue(foundTransaction2.get().getIsFraud())
+                () -> assertNotEquals(99, foundTransaction1.get().getIsFraud()),
+                () -> assertEquals(99, foundTransaction2.get().getIsFraud())
         );
     }
 

@@ -21,6 +21,9 @@ public class Location {
     public String country;
 
     @Setter
+    public String ip;
+
+    @Setter
     private String region;
 
     @Setter

@@ -40,7 +40,7 @@ public class TransactionCommandHandlerImpl implements TransactionCommandHandler 
         transactionToInsert.setLocation(location);
         transactionToInsert.setTimestamp(command.getTimestamp());
 
-        boolean isFraud = fraudDetectionService.evaluateFraud(transactionToInsert);
+        int isFraud = fraudDetectionService.evaluateFraud(transactionToInsert);
 
         transactionToInsert.setIsFraud(isFraud);
 

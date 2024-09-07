@@ -29,6 +29,7 @@ public class LocationsCommandHandlerImpl implements LocationsCommandHandler {
         } else {
             Device device = foundDevice.get();
             Location newLocation = LocationMapper.INSTANCE.locationDataToLocation(locationService.getLocationFromIp(command.getIp()));
+            newLocation.setIp(command.getIp());
             device.setLocation(newLocation);
 
             deviceDao.save(device);

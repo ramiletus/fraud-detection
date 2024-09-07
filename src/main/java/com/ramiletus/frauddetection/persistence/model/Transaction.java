@@ -32,5 +32,5 @@ public class Transaction {
     private Long timestamp;
 
     @Setter
-    private Boolean isFraud;
+    private int isFraud;
 }
