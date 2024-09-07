@@ -6,8 +6,7 @@ It also provides a Kafka consumer and a RabbitMQ listener to listen to data inje
 
 It uses Spring Data Neo4j to model a graph database. This way of connecting entities is more natural and efficient for the purposes of the application.
 
-Plus, it offers the possibility to integrate [CAMARA Project](https://camaraproject.org/) fraud detection APIs. For now, the Device Location Verification API is integrated through [MultiApi Maven Plugin](https://github.com/sngular/scs-multiapi-plugin).
-
+Plus, it offers the possibility to integrate [CAMARA Project](https://camaraproject.org/) fraud detection APIs. For now, the Device Location Verification API is integrated through [MultiApi Maven Plugin](https://github.com/sngular/scs-multiapi-plugin). The real connection with real telco companies depend on these considerations. Most telco companies require registration or charge for the use of their APIs. It has been intended that the final considerations (like consent management and the relation with the API providers) about the use of these APIs is delegated to the potential users of this application. A revision on the preparation of these matters for final users is pending.
 
 ## Technologies
 
