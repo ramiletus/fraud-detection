@@ -4,7 +4,10 @@ This is an application intended to persist data about users and transactions in 
 
 It also provides a Kafka consumer and a RabbitMQ listener to listen to data injection commands.
 
-It uses Neo4j to deploy a graph database. This way of connecting entities is more natural and efficient for the purposes of the application.
+It uses Spring Data Neo4j to model a graph database. This way of connecting entities is more natural and efficient for the purposes of the application.
+
+Plus, it offers the possibility to integrate [CAMARA Project](https://camaraproject.org/) fraud detection APIs. For now, the Device Location Verification API is integrated through [MultiApi Maven Plugin](https://github.com/sngular/scs-multiapi-plugin).
+
 
 ## Technologies
 
