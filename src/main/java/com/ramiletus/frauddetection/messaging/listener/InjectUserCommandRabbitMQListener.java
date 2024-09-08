@@ -6,10 +6,12 @@ import com.ramiletus.frauddetection.service.users.UsersCommandHandler;
 import com.ramiletus.frauddetection.service.users.injectusers.InjectUserCommand;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
+@Profile("rabbitmq")
 public class InjectUserCommandRabbitMQListener {
 
     private final UsersCommandHandler userCommandHandler;

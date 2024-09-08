@@ -210,6 +210,29 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<profiles>
+						<profile>
+							<id>kafka</id>
+							<activation>
+								<property>
+									<name>spring.profiles.active</name>
+									<value>kafka</value>
+								</property>
+							</activation>
+						</profile>
+						<profile>
+							<id>rabbitmq</id>
+							<activation>
+								<property>
+									<name>spring.profiles.active</name>
+									<value>rabbitmq</value>
+								</property>
+							</activation>
+						</profile>
+						<profile>
+							<id>test</id>
+						</profile>
+					</profiles>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

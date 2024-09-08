@@ -10,6 +10,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 
 @SpringBootTest(classes = {FraudDetectionApplication.class, RabbitMQTestConfig.class})
+@ActiveProfiles("rabbitmq")
 public class UserInjectionRabbitMQListenerTest {
 
     private final String uniqueEmail = UUID.randomUUID().toString().concat("@udc.es");
