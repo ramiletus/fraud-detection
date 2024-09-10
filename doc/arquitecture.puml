@@ -1,0 +1,45 @@
+@startuml
+allowmixing
+!define RECTANGLE class
+!define DATABASE database
+!define CLOUD cloud
+!define QUEUE queue
+
+skinparam componentStyle rectangle
+
+package "Arquitectura de la Aplicación" {
+  
+  RECTANGLE "API REST" as Api {
+    RECTANGLE "Controladores" as Controllers
+  }
+  
+  RECTANGLE "Servicios de Detección de Fraude" as FraudServices {
+    RECTANGLE "Servicio Interno de Detección de Fraude" as InternalFraudService
+  }
+  
+  DATABASE "Base de Datos de Grafos" as GraphDB
+
+
+KafkaListener --> GraphDB: Consume eventos
+RabbitMQListener --> GraphDB: Consume eventos
+}
+
+PERSON "Cliente Externo" as Client
+
+CLOUD "API Externa de Detección de Fraude" as ExternalFraudAPI
+
+QUEUE "Kafka Producer" as KafkaProducer
+QUEUE "RabbitMQ Producer" as RabbitMQProducer
+QUEUE "Kafka Listener" as KafkaListener
+QUEUE "RabbitMQ Listener" as RabbitMQListener
+
+Client --> Api : Realiza peticiones
+
+Api --> FraudServices
+FraudServices --> ExternalFraudAPI : Realiza validación externa
+
+FraudServices --> GraphDB : Consulta y actualiza relaciones
+
+KafkaProducer --> KafkaListener : Publica eventos
+RabbitMQProducer --> RabbitMQListener : Publica eventos
+@enduml
