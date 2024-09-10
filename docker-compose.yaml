@@ -1,6 +1,6 @@
 services:
   neo4j:
-    image: neo4j:4.2.5
+    image: neo4j:5.23.0
     expose:
       - "7687"
     ports:
@@ -9,7 +9,7 @@ services:
     environment:
       NEO4J_AUTH: 'neo4j/secretgraph'
     volumes:
-      - $HOME/neo4j/data:/data
+      - $HOME/dev/neo4j/data:/data
 
   zookeeper:
     container_name: 'zookeeper'
