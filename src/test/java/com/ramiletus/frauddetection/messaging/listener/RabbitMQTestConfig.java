@@ -10,6 +10,7 @@ import org.springframework.amqp.rabbit.test.TestRabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.BDDMockito.given;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.mock;
 
 @Configuration
 @RabbitListenerTest
+@ActiveProfiles("rabbitmq")
 public class RabbitMQTestConfig {
 
     @Value("${user.injection.source.name}")

@@ -2,7 +2,7 @@
 
 This is an application intended to persist data about users and transactions in order to detect fraud in the context of e-commerce. With this purpose, it provides a REST API to inject the data and check if a transaction is a fraud attempt.
 
-It also provides a Kafka consumer and a RabbitMQ listener to listen to data injection commands.
+It also provides a Kafka consumer and a RabbitMQ listener to listen to user data injection commands.
 
 It uses Spring Data Neo4j to model a graph database. This way of connecting entities is more natural and efficient for the purposes of the application.
 
@@ -15,10 +15,41 @@ Plus, it offers the possibility to integrate [CAMARA Project](https://camaraproj
 - Neo4j
 - Junit5
 - Maven
+- Kafka
+- RabbitMQ
 
-## How to run
+## How to run on your host
+
+1. Ensure Docker and Docker Compose are installed on your system.
+2. For the tests to pass, you will need an instance of Neo4j running. You can start it with Docker by running:
+
+    ```bash
+    docker run --publish=27474:7474 --publish=27687:7687 --volume=$HOME/test/neo4j/data:/data --env NEO4J_AUTH=neo4j/secretgraph neo4j
+    ```
+
+3. Create the .jar application by running the following command in this repository root:
+
+    ```bash
+    mvn clean package -P kafka,rabbitmq
+    ```   
+   The activation of "kafka" and "rabbitmq" profiles ensures the creation of the .jar with the necessary dependencies to run the Kafka consumer and the RabbitMQ listener, repectively.
 
 
+4. Build the `fraud-detection-rabbitmq-kafka` image by running the following command in this repository root:
+
+    ```bash
+    docker build -t fraud-detection-rabbitmq-kafka .
+    ```
+
+5. Start the services with:
+
+    ```bash
+    docker-compose up
+    ```
+
+This will start all required services, and the `fraud-detection` REST endpoint of the application will be available at port `http://localhost:8080`.
+
+You can access Neo4j at `http://localhost:7474`, RabbitMQ Management UI at `http://localhost:15672`, and use the application's endpoints to test the fraud detection system.
 
 
 ## REST Endpoints
